@@ -47,6 +47,19 @@ public class MCEngineDiscordApiUtil {
     }
 
     /**
+     * Removes the webhook entry associated with the given server ID.
+     *
+     * @param serverId the ID of the webhook to remove
+     */
+    public static void removeWebHook(String serverId) {
+        if (webhookMap.remove(serverId) != null) {
+            System.out.println("Removed webhook for serverId: " + serverId);
+        } else {
+            System.err.println("No webhook found to remove for serverId: " + serverId);
+        }
+    }
+
+    /**
      * Sends a plain text message to the webhook associated with the given server ID.
      *
      * @param serverId the ID mapped to the webhook

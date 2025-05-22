@@ -57,6 +57,26 @@ public class MCEngineDiscordApi {
     }
 
     /**
+     * Removes the webhook associated with the specified server ID.
+     *
+     * @param serverId the identifier for the webhook to remove
+     */
+    public void removeWebHook(String serverId) {
+        MCEngineDiscordApiUtil.removeWebHook(serverId);
+    }
+
+    /**
+     * Removes multiple webhook entries by their server IDs.
+     *
+     * @param serverIds an array of server IDs to remove
+     */
+    public void removeWebHooks(String[] serverIds) {
+        for (String serverId : serverIds) {
+            MCEngineDiscordApiUtil.removeWebHook(serverId);
+        }
+    }
+
+    /**
      * Forcefully registers or updates the webhook URL associated with a specific server ID.
      * This will overwrite existing entries.
      *
