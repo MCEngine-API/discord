@@ -16,12 +16,33 @@ public class MCEngineDiscordApiUtil {
     private static final Map<String, String> webhookMap = new ConcurrentHashMap<>();
 
     /**
-     * Adds or updates the webhook URL for a given server ID.
+     * Adds a new webhook URL for a given server ID if it doesn't already exist.
+     * If the server ID already exists, it logs a warning and does not overwrite.
+     *
+     * @param serverId    the identifier for the server
+     * @param webhookUrl  the Discord webhook URL
+     * @return true if added successfully, false if the serverId already exists
+     */
+    public static boolean addWebHookId(String serverId, String webhookUrl) {
+        if (webhookMap.containsKey(serverId)) {
+            System.err.println("Webhook already exists for serverId: " + serverId);
+            return false;
+        }
+        webhookMap.put(serverId, webhookUrl);
+        return true;
+    }
+
+    /**
+     * Adds or updates the webhook URL for a given server ID. If the server ID exists,
+     * this method will overwrite it and log a notice.
      *
      * @param serverId    the identifier for the server
      * @param webhookUrl  the Discord webhook URL
      */
-    public static void addWebHookId(String serverId, String webhookUrl) {
+    public static void overwriteWebHookId(String serverId, String webhookUrl) {
+        if (webhookMap.containsKey(serverId)) {
+            System.out.println("Overwriting existing webhook for serverId: " + serverId);
+        }
         webhookMap.put(serverId, webhookUrl);
     }
 

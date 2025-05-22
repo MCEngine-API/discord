@@ -30,17 +30,20 @@ public class MCEngineDiscordApi {
     }
 
     /**
-     * Registers a new webhook URL associated with a specific server ID.
+     * Attempts to register a new webhook URL associated with a specific server ID.
+     * If the server ID is already present, it will not overwrite and logs a warning.
      *
      * @param serverId    the identifier to map to the webhook
      * @param webhookUrl  the full Discord webhook URL
+     * @return true if registered successfully, false if the ID already exists
      */
-    public void addWebHookId(String serverId, String webhookUrl) {
-        MCEngineDiscordApiUtil.addWebHookId(serverId, webhookUrl);
+    public boolean addWebHookId(String serverId, String webhookUrl) {
+        return MCEngineDiscordApiUtil.addWebHookId(serverId, webhookUrl);
     }
 
     /**
-     * Registers multiple webhook URLs.
+     * Registers multiple webhook URLs. If any server ID already exists,
+     * those entries will be skipped.
      * Each entry in the array should contain two values: serverId and webhookUrl.
      *
      * @param serverWebhookPairs  an array of [serverId, webhookUrl] pairs
@@ -51,5 +54,16 @@ public class MCEngineDiscordApi {
                 MCEngineDiscordApiUtil.addWebHookId(pair[0], pair[1]);
             }
         }
+    }
+
+    /**
+     * Forcefully registers or updates the webhook URL associated with a specific server ID.
+     * This will overwrite existing entries.
+     *
+     * @param serverId    the identifier to map to the webhook
+     * @param webhookUrl  the full Discord webhook URL
+     */
+    public void overwriteWebHookId(String serverId, String webhookUrl) {
+        MCEngineDiscordApiUtil.overwriteWebHookId(serverId, webhookUrl);
     }
 }
